@@ -34,3 +34,16 @@ jobs:
             tmux send-keys -t "session_$session_num" "for i in {1..5}; do sleep \$((RANDOM % 58 + 1))m; bash \$(shuf -n 1 -e drive33311.sh drive33322.sh drive33355.sh drive33366.sh drive33377.sh); done" C-m
         done
 
+        # List all tmux sessions
+        tmux ls
+
+        # Check if all tmux sessions are running
+        if tmux ls | grep -q "session_"; then
+          echo "All tmux sessions have been successfully started."
+        else
+          echo "Failed to start all tmux sessions."
+          exit 1
+        fi
+        
+        # Keep the workflow running
+        sleep infinity
